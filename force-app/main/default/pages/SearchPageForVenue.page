@@ -1,0 +1,89 @@
+<apex:page controller="SearchVenuController" showHeader="false" standardStylesheets="false" docType="html-5.0">
+
+    <style>
+        .visiblityHidden {
+            display: none;
+        }
+
+        #scroll {
+            position: absolute;
+            top: 10px;
+            right: 3px;
+        }
+
+        .tableId {
+            position: absolute;
+            top: 10px;
+            right: 3px;
+        }
+
+        table,
+        th,
+        td {
+            border-collapse: collapse;
+
+            border: 1px solid black;
+            padding: 3px;
+        }
+
+        th {
+            background-color: pink;
+        }
+    </style>
+    <script>
+        function tableCSS() {
+            document.getElementById('divId').style.display = "block";
+        }
+
+    </script>
+    <apex:form>
+
+
+        <h1 style="font-size:30px"> VENUE SEARCH</h1>
+        <br/>
+        <apex:outputLabel value="Location" styleClass="visiblityHidden" for="CountryCodeID" />
+        <apex:inputField id="CountryCodeID" styleClass="visiblityHidden" value="{!aContact.MailingCountryCode}" />
+
+        <apex:outputLabel value="SelectState" for="StateID" />
+        <apex:inputField id="StateID" value="{!aContact.MailingStateCode}" />
+        <br/>
+
+        <apex:outputLabel value="Capacity" for="capacityID" />
+        <apex:inputText id="capacityID" value="{!seatsCapacity}" />
+        <br/>
+
+
+        <apex:outputLabel value="Duration" for="durationInMinsID" />
+        <apex:inputText id="durationInMinsID" value="{!durationInMins}" />
+        <br/>
+
+
+        <apex:commandButton action="{!searchForVenues}" value="Search" />
+        <apex:pageblock>
+
+            <div id="divId">
+
+
+                <apex:pageBlockTable value="{!venueResultList}" var="venue" styleClass="tableId">
+
+
+                    <apex:column>
+                        <apex:commandLink value="{!venue.Name__c}" target="_blank" action="{!dispalyVenues}">
+                            <apex:param name="VenuId" value="{!venue.id}" assignTo="{!VenueId}"></apex:param>
+                        </apex:commandLink>
+                    </apex:column>
+                    <apex:column value="{!venue.Name__c}" />
+                    <apex:column value="{!venue.name}" />
+
+                    <apex:column value="{!venue.Capacity__c}" />
+
+                    <apex:column value="{!venue.Book_Time_Duration__c}" />
+
+                    <apex:column value="{!venue.Mailing_State_Province_Code__c}" />
+
+                </apex:pageBlockTable>
+            </div>
+
+        </apex:pageblock>
+    </apex:form>
+</apex:page>

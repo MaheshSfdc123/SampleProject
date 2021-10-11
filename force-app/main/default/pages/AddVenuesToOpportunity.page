@@ -1,0 +1,45 @@
+<apex:page standardController="Opportunity" recordSetVar="opportunity" extensions="FetchVenuesPopup" tabStyle="Opportunity">
+
+    <script>
+        function exit() {
+            window.opener.location.href = "/{!$CurrentPage.parameters.id}";
+            window.close();
+        }
+    </script >
+
+    <apex:form>
+
+        <apex:pageBlock id="pbId">
+            <apex:pageBlockTable value="{!Venues}" var="w">
+                <apex:column headerValue="Select">
+                    <apex:inputCheckbox value="{!w.isSeleted}" />
+                </apex:column>
+                <apex:column value="{!w.venue.Name}" />
+                <apex:column value="{!w.venue.Name__c}" />
+            </apex:pageBlockTable>
+            <apex:pageBlockButtons>
+                <apex:commandButton value="AddVenuesToOpportunity" action="{!addVenues}" oncomplete="exit()" />
+            </apex:pageBlockButtons>
+            <apex:panelGrid columns="8">
+
+
+                <apex:commandButton reRender="pbId" value="First" action="{!first}" disabled="{!!hasPrevious}" title="First Page" status="paginationStatus"
+                />
+                <apex:commandButton reRender="pbId" value="Previous" action="{!previous}" disabled="{!!hasPrevious}" title="Previous Page"
+                    status="paginationStatus" />
+                <apex:commandButton reRender="pbId" value="Next" action="{!next}" disabled="{!!hasNext}" title="Next Page" status="paginationStatus"
+                />
+                <apex:commandButton reRender="pbId" value="Last" action="{!last}" disabled="{!!hasNext}" title="Last Page" status="paginationStatus"
+                />
+                <apex:actionStatus id="paginationStatus">
+                    <apex:facet name="start">
+                        Please wait.
+                        <img src="/img/loading32.gif" style="width: 20px;" />
+                    </apex:facet>
+                </apex:actionStatus>
+            </apex:panelGrid>
+
+        </apex:pageBlock>
+
+    </apex:form>
+</apex:page>

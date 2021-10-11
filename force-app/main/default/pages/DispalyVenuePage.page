@@ -1,0 +1,18 @@
+<apex:page controller="DispalyVenuePageController" showHeader="false" standardStylesheets="false">
+    <h1>
+        Venue Record Information
+    </h1>
+    <apex:form>
+        <apex:pageblock>
+            <apex:pageBlockTable value="{!recordsFromSearch}" var="rec">
+                <apex:column value="{!rec.Name__c}" />
+                <apex:column value="{!rec.Price__c}" />
+                <apex:column value="{!rec.Capacity__c}" />
+                <apex:column value="{!rec.City__c}" />
+                <apex:column value="{!rec.Mailing_State_Province_Code__c}" />
+                <apex:column value="{!rec.Availability}"></apex:column>
+                abcd
+            </apex:pageBlockTable>
+        </apex:pageblock>
+    </apex:form>
+</apex:page>
