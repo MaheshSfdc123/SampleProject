@@ -1,4 +1,5 @@
 public with sharing class DispalyVenuePageController {
+    publi String Availability;
     public String Availability{get;set;}
     public Id id=ApexPages.currentPage().getParameters().get('VenueId');
     public List<Venue__c> getRecordsFromSearch(){
